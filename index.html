@@ -52,18 +52,18 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">Academic Project Page</h1>
+            <h1 class="title is-1 publication-title">uSplit: image decomposition for fluorescence microscopy</h1>
             <div class="is-size-5 publication-authors">
               <!-- Paper authors -->
               <span class="author-block">
-                <a href="https://ashesh-0.github.io/" target="_blank">Ashesh</a><sup>*</sup>,</span>
+                <a href="https://ashesh-0.github.io/" target="_blank">Ashesh</a>,</span>
                 <span class="author-block">
-                  <a href="https://www.birmingham.ac.uk/staff/profiles/computer-science/academic-staff/krull-alexander.aspx" target="_blank">Alexander Krull</a><sup>*</sup>,</span>
+                  <a href="https://www.birmingham.ac.uk/staff/profiles/computer-science/academic-staff/krull-alexander.aspx" target="_blank">Alexander Krull</a>,</span>
                   <span class="author-block">
-                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank"> Moises Di Sante</a>
+                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank"> Moises Di Sante</a>,
                   </span>
                   <span class="author-block">
-                    <a href="http://www-3.unipv.it/ingserv/servizi/scheda2.php?mat=047899" target="_blank"> Francesco Silvio Pasqualini</a>
+                    <a href="http://www-3.unipv.it/ingserv/servizi/scheda2.php?mat=047899" target="_blank"> Francesco Silvio Pasqualini</a>,
                   </span>
                   <span class="author-block">
                     <a href="https://humantechnopole.it/en/people/florian-jug/" target="_blank"> Florian Jug</a>
@@ -71,15 +71,14 @@
                   </div>
 
                   <div class="is-size-5 publication-authors">
-                    <span class="author-block">Institution Name<br>Conferance name and year</span>
-                    <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
+                    <span class="author-block">Human Technopole<br>ICCV 2023</span>
                   </div>
 
                   <div class="column has-text-centered">
                     <div class="publication-links">
                          <!-- Arxiv PDF link -->
                       <span class="link-block">
-                        <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
+                        <a href="https://arxiv.org/pdf/2211.12872.pdf" target="_blank"
                         class="external-link button is-normal is-rounded is-dark">
                         <span class="icon">
                           <i class="fas fa-file-pdf"></i>
@@ -112,7 +111,7 @@
 
                 <!-- ArXiv abstract Link -->
                 <span class="link-block">
-                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
+                  <a href="https://arxiv.org/abs/2211.12872" target="_blank"
                   class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                     <i class="ai ai-arxiv"></i>
@@ -154,7 +153,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper tellus sed ante aliquam tempus. Etiam porttitor urna feugiat nibh elementum, et tempor dolor mattis. Donec accumsan enim augue, a vulputate nisi sodales sit amet. Proin bibendum ex eget mauris cursus euismod nec et nibh. Maecenas ac gravida ante, nec cursus dui. Vivamus purus nibh, placerat ac purus eget, sagittis vestibulum metus. Sed vestibulum bibendum lectus gravida commodo. Pellentesque auctor leo vitae sagittis suscipit.
+            We present uSplit, a dedicated approach for trained image decomposition in the context of fluorescence microscopy images. We find that best results using regular deep architectures are achieved when large image patches are used during training, making memory consumption the limiting factor to further improving performance. We therefore introduce lateral contextualization (LC), a memory efficient way to train powerful networks and show that LC leads to consistent and significant improvements on the task at hand. We integrate LC with U-Nets, Hierarchical AEs, and Hierarchical VAEs, for which we formulate a modified ELBO loss. Additionally, LC enables training deeper hierarchical models than otherwise possible and, interestingly, helps to reduce tiling artefacts that are inherently impossible to avoid when using tiled VAE predictions. We apply uSplit to five decomposition tasks, one on a synthetic dataset, four others derived from real microscopy data. LC achieves SOTA results (average improvements to the best baseline of 2.36 dB PSNR), while simultaneously requiring considerably less GPU memory.
           </p>
         </div>
       </div>
