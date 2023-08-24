@@ -84,39 +84,33 @@
                           <i class="fas fa-file-pdf"></i>
                         </span>
                         <span>Paper</span>
-                      </a>
-                    </span>
-
-                    <!-- Supplementary PDF link -->
-                    <span class="link-block">
-                      <a href="static/pdfs/supplementary_material.pdf" target="_blank"
-                      class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon">
-                        <i class="fas fa-file-pdf"></i>
+                        </a>
                       </span>
-                      <span>Supplementary</span>
-                    </a>
-                  </span>
 
-                  <!-- Github link -->
-                  <span class="link-block">
-                    <a href="https://github.com/YOUR REPO HERE" target="_blank"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-github"></i>
-                    </span>
-                    <span>Code</span>
-                  </a>
-                </span>
 
-                <!-- ArXiv abstract Link -->
-                <span class="link-block">
-                  <a href="https://arxiv.org/abs/2211.12872" target="_blank"
-                  class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
+                      <!-- Github link -->
+                      <span class="link-block">
+                        <a href="https://github.com/juglab/uSplit" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fab fa-github"></i>
+                        </span>
+                        <span>Code</span>
+                        </a>
+                      </span>
+
+
+                      <!-- Data link -->
+                      <span class="link-block">
+                        <a href="https://zenodo.org/record/8235843" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fab fa-github"></i>
+                        </span>
+                        <span>PaviaATN Dataset</span>
+                        </a>
+                      </span>
+
                 </a>
               </span>
             </div>
@@ -129,73 +123,106 @@
 
 
 <!-- Teaser video-->
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <video poster="" id="tree" autoplay controls muted loop height="100%">
+<!-- <section class="hero teaser"> -->
+  <!-- <div class="container is-max-desktop"> -->
+    <!-- <div class="hero-body"> -->
+      <!-- <video poster="" id="tree" autoplay controls muted loop height="100%"> -->
         <!-- Your video here -->
-        <source src="static/videos/banner_video.mp4"
-        type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered">
-        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
-      </h2>
-    </div>
-  </div>
-</section>
+        <!-- <source src="static/videos/banner_video.mp4" -->
+        <!-- type="video/mp4"> -->
+      <!-- </video> -->
+      <!-- <h2 class="subtitle has-text-centered"> -->
+        <!-- Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus.  -->
+      <!-- </h2> -->
+    <!-- </div> -->
+  <!-- </div> -->
+<!-- </section> -->
 <!-- End teaser video -->
 
-<!-- Paper abstract -->
+<!-- Paper summary -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
+        <h2 class="title is-3">Summary of the work</h2>
         <div class="content has-text-justified">
           <p>
-            We present uSplit, a dedicated approach for trained image decomposition in the context of fluorescence microscopy images. We find that best results using regular deep architectures are achieved when large image patches are used during training, making memory consumption the limiting factor to further improving performance. We therefore introduce lateral contextualization (LC), a memory efficient way to train powerful networks and show that LC leads to consistent and significant improvements on the task at hand. We integrate LC with U-Nets, Hierarchical AEs, and Hierarchical VAEs, for which we formulate a modified ELBO loss. Additionally, LC enables training deeper hierarchical models than otherwise possible and, interestingly, helps to reduce tiling artefacts that are inherently impossible to avoid when using tiled VAE predictions. We apply uSplit to five decomposition tasks, one on a synthetic dataset, four others derived from real microscopy data. LC achieves SOTA results (average improvements to the best baseline of 2.36 dB PSNR), while simultaneously requiring considerably less GPU memory.
+            In this work, the task is to decompose input patch into two output patches. A meta-architecture is proposed which is integrated with Hierarchical VAE and UNet variants.
+            The core idea is to use multiple successively lower resolution images alongside the primary input patch. The constraint is that these lower resolution images have the primary input patch in their center. The motivation is to provide additional surrounding context to the network in a GPU memory efficient way.
           </p>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- End paper abstract -->
+<!-- End paper summary -->
 
+<!-- Input problem -->
+<section class="section hero is-small">
+  <div class="container is-max-desktop">
+    <h2 class="title is-5">Problem Statement</h2>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="item">
+          <img src="static/images/problem.png" width="300" height="300" alt="MY ALT TEXT"/>
+          <h2 class="subtitle has-text-centered">
+            Decompose the input patch (left) into two output patches (right).
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How does it work -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">How does it work?</h2>
+        <div class="content has-text-justified">
+          <p>
+            In this work, the task is to decompose input patch into two output patches. A meta-architecture is proposed which is integrated with Hierarchical VAE and UNet variants.
+            The core idea is to use multiple successively lower resolution images alongside the primary input patch. The constraint is that these lower resolution images have the primary input patch in their center. The motivation is to provide additional surrounding context to the network in a GPU memory efficient way.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- How does it work -->
 
 <!-- Image carousel -->
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
       <div id="results-carousel" class="carousel results-carousel">
+        
+        <!-- Results -->
+        <div class="item">
+          <h2 class="title is-3">Qualitative Results</h2>
+          <!-- Your image here -->
+          <img src="static/images/ActvsMito.png" alt="MY ALT TEXT"/>
+          <h2 class="subtitle has-text-centered">
+            Qualitative results on the Act vs. Mito task from Hagen et al dataset. We compare ground truth to results obtained with the vanilla HVAE baseline trained with a patch size of 64 to results obtained with two variations of µSplit (HVAES using lean and deep LC, both also using a patch size of 64). The overlaid histograms shows either the intensity distribution of the two channels (column 1) or the intensity distribution of the ground truth and the prediction (red). The given PSNR are for the individual prediction (full input image) and for the entire dataset (in brackets).
+          </h2>
+        </div>
+
        <div class="item">
         <!-- Your image here -->
-        <img src="static/images/carousel1.jpg" alt="MY ALT TEXT"/>
+        <img src="static/images/LC_piu_DeepLC.png" alt="Overall architecture"/>
         <h2 class="subtitle has-text-centered">
-          First image description.
+          Network architecture of µSplit. Left: We show the network architecture employed by Regular-LC. The input (left side) consists of a core image patch xp, together with downscaled version of the patch surroundings – the lateral context (LC). We show the area corresponding to the original patch as red dotted box throughout the figure. Right: The network architecture of Deep-LC. A Vanilla HVAE architecture is stacked on top of the Regular-LC architecture shown in Left figure. Note that this is only possible because the latent space in Regular-LC retained the spatial dimensions of all layers by means of using the proposed LC. 
         </h2>
       </div>
       <div class="item">
         <!-- Your image here -->
-        <img src="static/images/carousel2.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          Second image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel3.jpg" alt="MY ALT TEXT"/>
+        <img src="static/images/LC_lean.drawio.png" alt="MY ALT TEXT"/>
         <h2 class="subtitle has-text-centered">
          Third image description.
        </h2>
      </div>
-     <div class="item">
-      <!-- Your image here -->
-      <img src="static/images/carousel4.jpg" alt="MY ALT TEXT"/>
-      <h2 class="subtitle has-text-centered">
-        Fourth image description.
-      </h2>
-    </div>
+
   </div>
 </div>
 </div>
@@ -206,84 +233,97 @@
 
 
 <!-- Youtube video -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
+<!-- <section class="hero is-small is-light"> -->
+  <!-- <div class="hero-body"> -->
+    <!-- <div class="container"> -->
       <!-- Paper video. -->
-      <h2 class="title is-3">Video Presentation</h2>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
+      <!-- <h2 class="title is-3">Video Presentation</h2> -->
+      <!-- <div class="columns is-centered has-text-centered"> -->
+        <!-- <div class="column is-four-fifths"> -->
           
-          <div class="publication-video">
+          <!-- <div class="publication-video"> -->
             <!-- Youtube embed code here -->
-            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+            <!-- <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
+          <!-- </div> -->
+        <!-- </div> -->
+      <!-- </div> -->
+    <!-- </div> -->
+  <!-- </div> -->
+<!-- </section> -->
 <!-- End youtube video -->
 
 
 <!-- Video carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title is-3">Another Carousel</h2>
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-video1">
-          <video poster="" id="video1" autoplay controls muted loop height="100%">
+<!-- <section class="hero is-small"> -->
+  <!-- <div class="hero-body"> -->
+    <!-- <div class="container"> -->
+      <!-- <h2 class="title is-3">Another Carousel</h2> -->
+      <!-- <div id="results-carousel" class="carousel results-carousel"> -->
+        <!-- <div class="item item-video1"> -->
+          <!-- <video poster="" id="video1" autoplay controls muted loop height="100%"> -->
             <!-- Your video file here -->
-            <source src="static/videos/carousel1.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video2">
-          <video poster="" id="video2" autoplay controls muted loop height="100%">
+            <!-- <source src="static/videos/carousel1.mp4" -->
+            <!-- type="video/mp4"> -->
+          <!-- </video> -->
+        <!-- </div> -->
+        <!-- <div class="item item-video2"> -->
+          <!-- <video poster="" id="video2" autoplay controls muted loop height="100%"> -->
             <!-- Your video file here -->
-            <source src="static/videos/carousel2.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video3">
-          <video poster="" id="video3" autoplay controls muted loop height="100%">\
+            <!-- <source src="static/videos/carousel2.mp4" -->
+            <!-- type="video/mp4"> -->
+          <!-- </video> -->
+        <!-- </div> -->
+        <!-- <div class="item item-video3"> -->
+          <!-- <video poster="" id="video3" autoplay controls muted loop height="100%">\ -->
             <!-- Your video file here -->
-            <source src="static/videos/carousel3.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+            <!-- <source src="static/videos/carousel3.mp4" -->
+            <!-- type="video/mp4"> -->
+          <!-- </video> -->
+        <!-- </div> -->
+      <!-- </div> -->
+    <!-- </div> -->
+  <!-- </div> -->
+<!-- </section> -->
 <!-- End video carousel -->
-
-
-
-
-
-
 <!-- Paper poster -->
 <section class="hero is-small is-light">
   <div class="hero-body">
     <div class="container">
-      <h2 class="title">Poster</h2>
-
-      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
-          </iframe>
+      <h2 class="title">What is being done here?</h2>
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p>
+            In this work, the task is to decompose input patch into two output patches.
+            The core idea is to use multiple successively lower resolution images alongside the primary input patch. The constraint is that these lower resolution images have the primary input patch in their center. The motivation is to provide additional surrounding context to the network, which helps to improve the decomposition.
+          </p>
+        </div>
+      </div>
+      <!-- <iframe  src="static/pdfs/sample.pdf" width="100%" height="550"> -->
+          <!-- </iframe> -->
         
       </div>
     </div>
   </section>
-<!--End paper poster -->
-
 
 <!--BibTex citation -->
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
-      <pre><code>BibTex Code Here</code></pre>
+      <pre><code>
+        @dataset{ashesh_2023_8235843,
+          author       = {Ashesh and
+                          Krull, Alexander and
+                          Di Sante, Moises and
+                          Silvio Pasqualini, Francesco and
+                          Jug, Florian},
+          title        = {PaviaATN},
+          month        = aug,
+          year         = 2023,
+          publisher    = {Zenodo},
+          doi          = {10.5281/zenodo.8235843},
+          url          = {https://doi.org/10.5281/zenodo.8235843}
+        }
+      </code></pre>
     </div>
 </section>
 <!--End BibTex citation -->
