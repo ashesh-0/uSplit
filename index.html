@@ -105,9 +105,20 @@
                         <a href="https://zenodo.org/record/8235843" target="_blank"
                         class="external-link button is-normal is-rounded is-dark">
                         <span class="icon">
-                          <i class="fab fa-github"></i>
+                          <i class="fas fa-file-pdf"></i>
                         </span>
                         <span>PaviaATN Dataset</span>
+                        </a>
+                      </span>
+
+                      <!-- Trained Model link -->
+                      <span class="link-block">
+                        <a href="https://zenodo.org/record/8235843" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Pre-trained models</span>
                         </a>
                       </span>
 
@@ -148,7 +159,7 @@
         <div class="content has-text-justified">
           <p>
             In this work, the task is to decompose input patch into two output patches. A meta-architecture is proposed which is integrated with Hierarchical VAE and UNet variants.
-            The core idea is to use multiple successively lower resolution images alongside the primary input patch. The constraint is that these lower resolution images have the primary input patch in their center. The motivation is to provide additional surrounding context to the network in a GPU memory efficient way.
+            The core idea is to use multiple successively lower resolution images alongside the primary input patch. These lower resolution images have the primary input patch in their center and therefore they contain the surrounding regions around the primary input patch. The motivation is to provide additional surrounding context to the network in a GPU memory efficient way. The paper also highlights an issue with the prevalent tiling scheme, provides a hypothesis for it, and proposes a practical way out. 
           </p>
         </div>
       </div>
@@ -166,7 +177,7 @@
         <div class="item">
           <img src="static/images/problem.png" width="300" height="300" alt="MY ALT TEXT"/>
           <h2 class="subtitle has-text-centered">
-            The task: Decompose the input patch (left) into two output patches (right).
+            <b>The task</b>: Decompose the input patch (left) into two output patches (right). Images taken from notMNIST dataset.
           </h2>
         </div>
       </div>
@@ -182,8 +193,12 @@
         <h2 class="title is-3" align="left">How does it work?</h2>
         <div class="content has-text-justified">
           <p>
-            In this work, the task is to decompose input patch into two output patches. A meta-architecture is proposed which is integrated with Hierarchical VAE and UNet variants.
-            The core idea is to use multiple successively lower resolution images alongside the primary input patch. The constraint is that these lower resolution images have the primary input patch in their center. The motivation is to provide additional surrounding context to the network in a GPU memory efficient way.
+            There are two aspects of this work: (a) The<b> meta architecture µSplit</b> and (b) <b>the tiling strategy</b>. 
+            <br>
+            <b>Our meta architecture, µSplit</b>: Lets start with the intuition behind the meta architecture. To get a good prediction for a pixel, the question we ask is (a) how much surrounding context is needed and (b) at what resolution is it needed. We found that the further away one gets from the pixel in question, it is more often the lower resolution content that has more relevant information. Paper shows this quantitatively. Inline with this empirical observation, the meta architecture makes use of lower and lower resolution images. So, at every hierarchical level, the embedding of the primary input patch, which would be downsampled in accordance with the hierarchy level, gets merged with the embedding of an  equally downsampled (~lower resolution) neighboring patch. 
+            <br>Lets take a concrete example. Given a 64x64 sized patch, the embeddings of the primary patch at successive hierarchical levels will have embeddings with spatial dimensions as 32X32, 16x16, 8x8 and so on. At every hierarchical level, we feed 64x64 sized low resolution patch which are created by downsampling the input frame two times, four times, eight times and so on. Two things are to be noted: At every hierarchical level, resolution level of the primary patch embedding matches the resolution level of downsampled low resolution image which is fed at that hierarchy level. Secondly, these more and more downsampled patches contain lower and lower resolution content of larger and larger regions surrounding the input patch. In this way, a large context is fed to the network in a memory efficient way. 
+            <br>
+            <b>The tiling strategy:</b> For predicting on large input frames, one first predicts on smaller patches and then stitches them together. The tiling strategy is to ensure that the stitching is smooth, i.e, there are no boundary artefacts. In this work, we found that if one uses a much bigger patch size using evaluation time than what was used during training, the performance degrades. This is the prevalent tiling strategy, which the paper calls 'Outer Padding'. Paper provides a hypothesis as to why this happens and proposes using the same patch size both during evaluation and training, which is called 'Inner Padding'.
           </p>
         </div>
       </div>
@@ -212,14 +227,14 @@
         <!-- Your image here -->
         <img src="static/images/LC_piu_DeepLC.png" alt="Overall architecture"/>
         <h2 class="subtitle has-text-centered">
-          Network architecture of µSplit. Left: We show the network architecture employed by Regular-LC. The input (left side) consists of a core image patch xp, together with downscaled version of the patch surroundings – the lateral context (LC). We show the area corresponding to the original patch as red dotted box throughout the figure. Right: The network architecture of Deep-LC. A Vanilla HVAE architecture is stacked on top of the Regular-LC architecture shown in Left figure. Note that this is only possible because the latent space in Regular-LC retained the spatial dimensions of all layers by means of using the proposed LC. 
+          Network architecture of µSplit. Left: We show the network architecture employed by Regular-LC. The input (left side) consists of a core image patch (bottom left), together with downscaled version of the patch surroundings – the lateral context (LC). We show the area corresponding to the original patch as red dotted box throughout the figure. Right: The network architecture of Deep-LC. A Vanilla HVAE architecture is stacked on top of the Regular-LC architecture shown in Left figure. Note that this is only possible because the latent space in Regular-LC retained the spatial dimensions of all layers by means of using the proposed LC. 
         </h2>
       </div>
       <div class="item">
         <!-- Your image here -->
         <img src="static/images/LC_lean.drawio.png" alt="MY ALT TEXT"/>
         <h2 class="subtitle has-text-centered">
-         Third image description.
+          Our Lean-LC and modules used in it (TopDown block, Residual block) which were taken from <a href="https://arxiv.org/abs/2006.06072">Prakash et al.</a> Here, the latent embeddings passed to the top-down block are first centercropped to appropriate size so that the top-down block of a Vanilla HVAE can be used. 
        </h2>
      </div>
 
