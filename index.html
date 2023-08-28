@@ -195,10 +195,11 @@
           <p>
             There are two aspects of this work: (a) The<b> meta architecture µSplit</b> and (b) <b>the tiling strategy</b>. 
             <br>
-            <b>Our meta architecture, µSplit</b>: Lets start with the intuition behind the meta architecture. To get a good prediction for a pixel, the question we ask is (a) how much surrounding context is needed and (b) at what resolution is it needed. We found that the further away one gets from the pixel in question, it is more often the lower resolution content that has more relevant information. Paper shows this quantitatively. Inline with this empirical observation, the meta architecture makes use of lower and lower resolution images. So, at every hierarchical level, the embedding of the primary input patch, which would be downsampled in accordance with the hierarchy level, gets merged with the embedding of an  equally downsampled (~lower resolution) neighboring patch. 
-            <br>Lets take a concrete example. Given a 64x64 sized patch, the embeddings of the primary patch at successive hierarchical levels will have embeddings with spatial dimensions as 32X32, 16x16, 8x8 and so on. At every hierarchical level, we feed 64x64 sized low resolution patch which are created by downsampling the input frame two times, four times, eight times and so on. Two things are to be noted: At every hierarchical level, resolution level of the primary patch embedding matches the resolution level of downsampled low resolution image which is fed at that hierarchy level. Secondly, these more and more downsampled patches contain lower and lower resolution content of larger and larger regions surrounding the input patch. In this way, a large context is fed to the network in a memory efficient way. 
+            <b>Our meta architecture, µSplit</b>: Lets start with the intuition behind the meta architecture. To get a good prediction for a pixel, the question we ask is (a) how much surrounding context is needed and (b) at what resolution is it needed. We found that the further away one gets from the pixel in question, it is more often the lower resolution content that has more relevant information. Paper shows this quantitatively. Inline with this empirical observation, the meta architecture makes use of lower and lower resolution images. So, at every hierarchical level, the embedding of the primary input patch, which has undergone few downsampling steps, gets merged with the embedding of an  equally downsampled (~lower resolution) neighboring patch. 
+            
+            <br>Lets take a concrete example. Given a 64x64 sized patch, the embeddings of the primary patch at successive hierarchical levels will have embeddings with spatial dimensions of 32X32, 16x16, 8x8 sizes and so on. At every hierarchical level, we feed 64x64 sized low resolution patch which are created by downsampling the whole input frame two times, four times, eight times and so on and selecting a 64x64 sized patch, which is centered on the primary input patch. Two things are to be noted: At every hierarchical level, resolution level of the primary patch embedding matches the resolution level of downsampled low resolution image which is fed at that hierarchy level. Secondly, these more and more downsampled patches contain lower and lower resolution content of larger and larger regions surrounding the input patch. In this way, a large context is fed to the network in a memory efficient way. 
             <br>
-            <b>The tiling strategy:</b> For predicting on large input frames, one first predicts on smaller patches and then stitches them together. The tiling strategy is to ensure that the stitching is smooth, i.e, there are no boundary artefacts. In this work, we found that if one uses a much bigger patch size using evaluation time than what was used during training, the performance degrades. This is the prevalent tiling strategy, which the paper calls 'Outer Padding'. Paper provides a hypothesis as to why this happens and proposes using the same patch size both during evaluation and training, which is called 'Inner Padding'.
+            <b>The tiling strategy:</b> For predicting on large input frames, one first predicts on smaller patches and then stitches them together. The tiling strategy is to ensure that the stitching is smooth, i.e, there are no boundary artefacts. In this work, we found that if one uses a much bigger patch size at evaluation time than what was used during training, the performance degrades. This is what happens in the prevalent tiling strategy, which the paper calls 'Outer Padding'. Paper provides a hypothesis as to why this happens and proposes using the same patch size both during evaluation and training, which is called 'Inner Padding'.
           </p>
         </div>
       </div>
@@ -219,7 +220,7 @@
           <!-- Your image here -->
           <img src="static/images/ActvsMito.png" alt="MY ALT TEXT"/>
           <h2 class="subtitle has-text-centered">
-            Qualitative results on the Act vs. Mito task from Hagen et al dataset. We compare ground truth to results obtained with the vanilla HVAE baseline trained with a patch size of 64 to results obtained with two variations of µSplit (HVAES using lean and deep LC, both also using a patch size of 64). The overlaid histograms shows either the intensity distribution of the two channels (column 1) or the intensity distribution of the ground truth and the prediction (red). The given PSNR are for the individual prediction (full input image) and for the entire dataset (in brackets).
+            Qualitative results on the Act vs. Mito task from Hagen et al dataset. For the input patch (1st col, 2nd row), we compare ground truth to results obtained with the vanilla HVAE baseline trained with a patch size of 64 to results obtained with two variations of µSplit (HVAEs using Lean-LC and Deep-LC, both also using a patch size of 64). The overlaid histograms shows either the intensity distribution of the two channels (column 1) or the intensity distribution of the ground truth and the prediction (red). The given PSNR are for the individual prediction (full input image) and for the entire dataset (in brackets).
           </h2>
         </div>
 
@@ -308,18 +309,16 @@
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
       <pre><code>
-        @dataset{ashesh_2023_8235843,
+        @InProceedings{ashesh_2023_8235843,
           author       = {Ashesh and
                           Krull, Alexander and
                           Di Sante, Moises and
                           Silvio Pasqualini, Francesco and
                           Jug, Florian},
-          title        = {PaviaATN},
-          month        = aug,
-          year         = 2023,
-          publisher    = {Zenodo},
-          doi          = {10.5281/zenodo.8235843},
-          url          = {https://doi.org/10.5281/zenodo.8235843}
+          title        = {uSplit: image decomposition for fluorescence microscopy},
+          month        = {October},
+          year         = {2023},
+          booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
         }
       </code></pre>
     </div>
