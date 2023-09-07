@@ -113,7 +113,7 @@
 
                       <!-- Trained Model link -->
                       <span class="link-block">
-                        <a href="https://zenodo.org/record/8235843" target="_blank"
+                        <a href="https://zenodo.org/record/8324707" target="_blank"
                         class="external-link button is-normal is-rounded is-dark">
                         <span class="icon">
                           <i class="fas fa-file-pdf"></i>
@@ -155,11 +155,11 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">A brief overview</h2>
+        <h2 class="title is-3">Summary</h2>
         <div class="content has-text-justified">
           <p>
-            <b>For Computer Vision enthusiasts,</b> we present a novel meta-architecture for image decomposition. The novelty of the approach lies in its use of large context in a GPU efficient way.<br>
-            <b>From microscopists' perspective,</b> the idea is to use a single fluorophore to stain two different structures (like Actin and Tubulin). The obtained image stack will therefore contain superimposed structures. With our machine learning based approach, the goal is to decompose the superimposed image into two channels, each containing one structure.
+            <b>For Computer Vision enthusiasts,</b> we present a novel meta-architecture for image decomposition. The novelty of the approach lies in its use of surrounding spatial context in a GPU efficient way.<br>
+            <b>From microscopists' perspective,</b> the idea is to use a single fluorophore to stain two different structures (like Actin and Tubulin). The obtained image stack will therefore contain superimposed structures. With our machine learning based approach, the goal is to decompose the superimposed image into two channels, each containing one type of structure.
           </p>
         </div>
       </div>
@@ -202,11 +202,11 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Summary</h2>
+        <h2 class="title is-3">Technical Overview</h2>
         <div class="content has-text-justified">
           <p>
             In this work, the task is to decompose input patch into two constituent output patches. A meta-architecture is proposed which is integrated with Hierarchical VAE and UNet variants.
-            The core idea is to use multiple successively lower resolution images alongside the primary input patch. These lower resolution images have the primary input patch in their center and therefore they contain the surrounding regions around the primary input patch. The motivation is to provide additional surrounding context to the network in a GPU memory efficient way. The paper also highlights an issue with the prevalent tiling scheme, provides a hypothesis for it, and proposes a practical way out. 
+            The core idea is to use multiple successively lower resolution images alongside the primary input patch. These lower resolution images have the primary input patch in their center and therefore they contain the surrounding regions around the primary input patch. The motivation is to provide additional surrounding context to the network in a GPU memory efficient way. The paper also highlights an issue with the prevalent tiling scheme, provides a hypothesis for the issue, and proposes a practical way out. 
           </p>
         </div>
       </div>
@@ -224,13 +224,13 @@
         <h2 class="title is-3" align="left">How does it work?</h2>
         <div class="content has-text-justified">
           <p>
-            From computer vision perspective, there are two aspects of this work: (a) The<b> meta architecture µSplit</b> and (b) <b>the tiling strategy</b>. 
+            There are two aspects of this work: (a) The<b> meta architecture µSplit</b> and (b) <b>the tiling strategy</b>. 
             <br>
             <b>Our meta architecture, µSplit</b>: Lets start with the intuition behind the meta architecture. To get a good prediction for a pixel, the question we ask is (a) how much surrounding context is needed and (b) at what resolution is it needed. We found that the further away one gets from the pixel in question, it is more often the case that the lower resolution content has sufficient information. Our paper shows this quantitatively. Inline with this empirical observation, the meta architecture makes use of lower and lower resolution images. So, at every hierarchical level, the embedding of the primary input patch, which has undergone downsampling operation, gets merged with the embedding of an  equally downsampled (~lower resolution) neighboring patch. 
             
-            <br>Lets take a concrete example. Given a 64x64 sized patch, the embeddings of the primary patch at successive hierarchical levels will have embeddings with spatial dimensions of 32X32, 16x16, 8x8 sizes and so on. At every hierarchical level, we feed 64x64 sized low resolution patch which are created by downsampling the whole input frame two times, four times, eight times and so on and selecting a 64x64 sized patch, which is centered on the primary input patch. Two things are to be noted: At every hierarchical level, resolution level of the primary patch embedding matches the resolution level of downsampled low resolution image which is fed at that hierarchy level. Secondly, these more and more downsampled patches contain lower and lower resolution content of larger and larger regions surrounding the input patch. In this way, a large context is fed to the network in a memory efficient way. 
+            <br>Lets take a concrete example. Given a 64x64 sized patch, the embeddings of the primary patch at successive hierarchical levels will have embeddings with spatial dimensions of 32X32, 16x16, 8x8 size and so on. At every hierarchical level, we feed 64x64 sized low resolution patch which are created by downsampling the whole input frame two times, four times, eight times and so on and selecting a 64x64 sized patch, which is centered on the primary input patch. Two things are to be noted: At every hierarchical level, resolution level of the primary patch embedding matches the resolution level of downsampled low resolution image which is fed at that hierarchy level. Secondly, these more and more downsampled patches contain lower and lower resolution content of larger and larger regions surrounding the input patch. In this way, a large context is fed to the network in a memory efficient way. 
             <br>
-            <b>The tiling strategy:</b> For predicting on large input frames, one first predicts on smaller patches and then stitches them together. The tiling strategy is to ensure that the stitching is smooth, i.e, there are no boundary artefacts. In this work, we found that if one uses a much bigger patch size at evaluation time than what was used during training, the performance degrades. This is what happens in the prevalent tiling strategy, which the paper calls 'Outer Padding'. Paper provides a hypothesis as to why this happens and proposes using the same patch size both during evaluation and training, which is called 'Inner Padding'.
+            <b>The tiling strategy:</b> For predicting on large input frames, one first predicts on smaller patches and then stitches them together. The tiling strategy is to ensure that the stitching is smooth, i.e, there are no boundary artefacts. In this work, we found that if one uses a much bigger patch size at evaluation time than what was used during training, the performance degrades. This is what happens in the prevalent tiling strategy, which the paper calls 'Outer Padding'. Paper provides a hypothesis as to why this happens and proposes using the same patch size both during evaluation and training, and names it 'Inner Padding'.
           </p>
         </div>
       </div>
